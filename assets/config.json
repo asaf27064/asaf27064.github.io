@@ -1,0 +1,56 @@
+{
+    "wizard": {
+        "name": "MasterKodi IL Wizard",
+        "version": "1.0.0",
+        "author": "MasterKodi IL",
+        "website": "https://asaf27064.github.io/"
+    },
+    "settings": {
+        "auto_update_check": true,
+        "update_check_interval": 86400
+    },
+    "savedata": {
+        "keep_debrid": true,
+        "keep_trakt": true,
+        "keep_login": true,
+        "keep_xmls": true
+    },
+    "addons": {
+        "pov": {
+            "name": "POV",
+            "id": "plugin.video.pov",
+            "repo": "repository.peno64"
+        },
+        "fenlight": {
+            "name": "FenLight",
+            "id": "plugin.video.fenlight",
+            "repo": "repository.tikipeter"
+        }
+    },
+    "debrid_services": {
+        "premiumize": {
+            "name": "Premiumize",
+            "settings": ["pm.token", "pm.account_id"]
+        },
+        "realdebrid": {
+            "name": "Real-Debrid",
+            "settings": ["rd.token", "rd.client_id", "rd.refresh", "rd.secret"]
+        },
+        "easydebrid": {
+            "name": "EasyDebrid",
+            "settings": ["ed.token", "ed.account_id"]
+        },
+        "torbox": {
+            "name": "TorBox",
+            "settings": ["tb.token", "tb.account_id"]
+        },
+        "alldebrid": {
+            "name": "AllDebrid",
+            "settings": ["ad.token", "ad.account_id"]
+        },
+        "offcloud": {
+            "name": "Offcloud",
+            "settings": ["oc.token", "oc.account_id"]
+        }
+    }
+}

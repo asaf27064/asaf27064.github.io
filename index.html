@@ -1,9 +1,211 @@
 <!DOCTYPE html>
-<html>
-<head><title>POV Hebrew Wizard Repository</title></head>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterKodi IL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        h1 {
+            font-size: 3em;
+            color: #00d9ff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+        }
+        .subtitle {
+            color: #888;
+            font-size: 1.2em;
+        }
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .section h2 {
+            color: #00d9ff;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .feature {
+            background: rgba(0, 217, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #00d9ff, #00ff88);
+            color: #1a1a2e;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+        }
+        .builds {
+            list-style: none;
+        }
+        .builds li {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .build-name {
+            font-weight: bold;
+            color: #00d9ff;
+        }
+        .build-version {
+            color: #888;
+            font-size: 0.9em;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #666;
+        }
+        .instructions {
+            background: rgba(255, 255, 0, 0.1);
+            border: 1px solid rgba(255, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .instructions h3 {
+            color: #ffdd00;
+            margin-bottom: 15px;
+        }
+        .instructions ol {
+            padding-right: 20px;
+        }
+        .instructions li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+    </style>
+</head>
 <body>
-<h1>POV Hebrew Wizard Repository</h1>
-<a href="repository.pov.hebrew.wizard-1.0.0.zip">repository.pov.hebrew.wizard-1.0.0.zip</a><br>
-<a href="zips/">zips/</a><br>
+    <div class="container">
+        <header>
+            <h1>🎬 MasterKodi IL</h1>
+            <p class="subtitle">בילד קודי ישראלי עם תמיכה בעברית מלאה</p>
+        </header>
+
+        <div class="section">
+            <h2>✨ תכונות</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h3>גיבוי ושחזור</h3>
+                    <p>שמירת הגדרות Debrid, Trakt ומועדפים</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎭</div>
+                    <h3>POV + FenLight</h3>
+                    <p>שני האדאונים המובילים עם תמיכה בעברית</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Arctic Fuse 3</h3>
+                    <p>סקין מודרני עם ווידג'טים בעברית</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>כלי תחזוקה</h3>
+                    <p>ניקוי מטמון וניהול אדאונים</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📦 בילדים זמינים</h2>
+            <ul class="builds">
+                <li>
+                    <div>
+                        <span class="build-name">MasterKodi IL Full</span>
+                        <span class="build-version">v1.0</span>
+                        <p>בילד מלא עם POV + FenLight + Arctic Fuse 3</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <span class="build-name">MasterKodi IL POV</span>
+                        <span class="build-version">v1.0</span>
+                        <p>בילד עם POV בלבד + Arctic Fuse 3</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <span class="build-name">MasterKodi IL FenLight</span>
+                        <span class="build-version">v1.0</span>
+                        <p>בילד עם FenLight בלבד + Arctic Fuse 3</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📥 התקנה</h2>
+            <div class="instructions">
+                <h3>הוראות התקנה:</h3>
+                <ol>
+                    <li>התקן את קודי 21 (Omega) או גרסה חדשה יותר</li>
+                    <li>הוסף מקור: <code>https://asaf27064.github.io/</code></li>
+                    <li>התקן את הרפוזיטורי מהמקור</li>
+                    <li>התקן את <code>MasterKodi IL Wizard</code> מהרפוזיטורי</li>
+                    <li>הפעל את האשף ובחר בילד להתקנה</li>
+                </ol>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 MasterKodi IL | נבנה עם ❤️ לקהילה הישראלית</p>
+        </footer>
+    </div>
 </body>
 </html>
