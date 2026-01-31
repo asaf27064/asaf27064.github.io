@@ -1,8 +1,6 @@
 # MasterKodi IL Build List
-# Format: name="Build Name" version="X.X" url="https://..." addon="pov|fenlight|both" description="..."
+# Format: name="Build Name" version="X.X" url="https://..." skin_url="https://..." description="..."
 
-name="MasterKodi IL Full" version="1.0" url="https://github.com/asaf27064/asaf27064.github.io/releases/download/v1.0/MasterKodi_IL_Full.zip" addon="both" description="בילד מלא עם POV + FenLight + Arctic Fuse 3"
+name="FenLight" version="1.0" url="https://github.com/asaf27064/asaf27064.github.io/releases/download/v1.0/FenLight_Estuary.zip" skin_url="https://github.com/asaf27064/asaf27064.github.io/releases/download/v1.0/Arctic_Fuse_Skin.zip" description="בילד FenLight עם תמיכה בעברית"
 
-name="MasterKodi IL POV" version="1.0" url="https://github.com/asaf27064/asaf27064.github.io/releases/download/v1.0/MasterKodi_IL_POV.zip" addon="pov" description="בילד עם POV בלבד + Arctic Fuse 3"
-
-name="MasterKodi IL FenLight" version="1.0" url="https://github.com/asaf27064/asaf27064.github.io/releases/download/v1.0/MasterKodi_IL_FenLight.zip" addon="fenlight" description="בילד עם FenLight בלבד + Arctic Fuse 3"
+name="POV" version="1.0" url="https://github.com/asaf27064/asaf27064.github.io/releases/download/v1.0/POV_Estuary.zip" skin_url="https://github.com/asaf27064/asaf27064.github.io/releases/download/v1.0/Arctic_Fuse_Skin.zip" description="בילד POV עם תמיכה בעברית"
