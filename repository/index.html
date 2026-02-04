@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository - MasterKodi IL</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        header { text-align: center; padding: 30px 0; }
+        h1 { font-size: 2.5em; color: #00d9ff; margin-bottom: 10px; }
+        .back-link { color: #888; text-decoration: none; }
+        .back-link:hover { color: #00d9ff; }
+        
+        .repo-box {
+            background: linear-gradient(145deg, rgba(0, 217, 255, 0.1), rgba(0, 255, 136, 0.05));
+            border: 2px solid #00d9ff;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .repo-box .icon { font-size: 4em; margin-bottom: 20px; }
+        .repo-box h2 { color: #00d9ff; margin-bottom: 15px; }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #00d9ff, #00ff88);
+            color: #1a1a2e;
+            padding: 15px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.3em;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+        }
+        
+        .source-url {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00d9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .source-url h3 { color: #00d9ff; margin-bottom: 15px; }
+        .url-display {
+            font-family: monospace;
+            font-size: 1.3em;
+            color: #00ff88;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 30px;
+            border-radius: 8px;
+            display: inline-block;
+            word-break: break-all;
+        }
+        .copy-btn {
+            background: rgba(0, 217, 255, 0.2);
+            border: 1px solid #00d9ff;
+            color: #00d9ff;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 1em;
+        }
+        .copy-btn:hover { background: #00d9ff; color: #1a1a2e; }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .instructions h3 { color: #00d9ff; margin-bottom: 20px; }
+        .instructions ol { padding-right: 25px; }
+        .instructions li { margin: 15px 0; line-height: 1.6; color: #ccc; }
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 10px;
+            border-radius: 5px;
+            color: #00ff88;
+            font-family: monospace;
+        }
+        
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .benefit {
+            background: rgba(0, 217, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .benefit .icon { font-size: 1.5em; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../" class="back-link">← חזרה לעמוד הראשי</a>
+            <h1>📦 Repository</h1>
+        </header>
+
+        <div class="source-url">
+            <h3>🔗 כתובת המקור</h3>
+            <div class="url-display" id="source-url">https://asaf27064.github.io</div>
+            <br>
+            <button class="copy-btn" onclick="copyUrl()">📋 העתק</button>
+        </div>
+
+        <div class="repo-box">
+            <div class="icon">📦</div>
+            <h2>MasterKodi IL Repository</h2>
+            <a href="../packages/repository.masterkodi.il-1.0.0.zip" class="download-btn">📥 הורד ZIP</a>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 הוספת מקור בקודי</h3>
+            <ol>
+                <li>פתח את Kodi ולך ל: <code>Settings → File Manager</code></li>
+                <li>לחץ על <code>Add source</code></li>
+                <li>לחץ על <code>&lt;None&gt;</code></li>
+                <li>הקלד: <code>https://asaf27064.github.io</code></li>
+                <li>תן שם למקור (למשל: "MasterKodi IL")</li>
+                <li>לחץ OK</li>
+                <li>לך ל: <code>Settings → Add-ons → Install from zip file</code></li>
+                <li>בחר את המקור שהוספת</li>
+                <li>בחר <code>repository.masterkodi.il-1.0.0.zip</code></li>
+                <li>חכה להתקנה, ואז התקן את ה-Wizard מהרפוזיטורי</li>
+            </ol>
+            
+            <div class="benefits">
+                <div class="benefit">
+                    <div class="icon">🔄</div>
+                    <strong>עדכונים אוטומטיים</strong>
+                </div>
+                <div class="benefit">
+                    <div class="icon">✅</div>
+                    <strong>מאומת ובטוח</strong>
+                </div>
+                <div class="benefit">
+                    <div class="icon">📦</div>
+                    <strong>גישה לכל האדאונים</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyUrl() {
+            navigator.clipboard.writeText('https://asaf27064.github.io');
+            document.querySelector('.copy-btn').textContent = '✓ הועתק!';
+            setTimeout(() => {
+                document.querySelector('.copy-btn').textContent = '📋 העתק';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizard - MasterKodi IL</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        header { text-align: center; padding: 30px 0; }
+        h1 { font-size: 2.5em; color: #00d9ff; margin-bottom: 10px; }
+        .back-link { color: #888; text-decoration: none; }
+        .back-link:hover { color: #00d9ff; }
+        
+        .download-box {
+            background: linear-gradient(145deg, rgba(0, 217, 255, 0.1), rgba(0, 255, 136, 0.05));
+            border: 2px solid #00d9ff;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .download-box .icon { font-size: 4em; margin-bottom: 20px; }
+        .download-box h2 { color: #00d9ff; margin-bottom: 15px; }
+        .version { color: #00ff88; font-size: 1.2em; margin-bottom: 20px; }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #00d9ff, #00ff88);
+            color: #1a1a2e;
+            padding: 15px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.3em;
+            transition: all 0.3s;
+        }
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .instructions h3 { color: #00d9ff; margin-bottom: 20px; }
+        .instructions ol { padding-right: 25px; }
+        .instructions li { margin: 15px 0; line-height: 1.6; color: #ccc; }
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 10px;
+            border-radius: 5px;
+            color: #00ff88;
+            font-family: monospace;
+        }
+        
+        .note {
+            background: rgba(255, 255, 0, 0.1);
+            border: 1px solid rgba(255, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #ffdd00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../" class="back-link">← חזרה לעמוד הראשי</a>
+            <h1>🧙 Wizard</h1>
+        </header>
+
+        <div class="download-box">
+            <div class="icon">🧙‍♂️</div>
+            <h2>MasterKodi IL Wizard</h2>
+            <div class="version">גרסה 1.8.1</div>
+            <a href="../packages/MasterKodi_IL_Wizard_v1.8.1.zip" class="download-btn">📥 הורד ZIP</a>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 הוראות התקנה</h3>
+            <ol>
+                <li>הורד את קובץ ה-ZIP למכשיר</li>
+                <li>פתח את Kodi</li>
+                <li>לך ל: <code>Settings → Add-ons → Install from zip file</code></li>
+                <li>נווט לקובץ ה-ZIP ובחר אותו</li>
+                <li>חכה להודעת "Add-on installed"</li>
+                <li>הפעל את ה-Wizard מ: <code>Add-ons → Program add-ons</code></li>
+            </ol>
+            
+            <div class="note">
+                💡 <strong>טיפ:</strong> אם יש לך קודי נקי, עדיף להוריד את ה-APK המוכן מדף ההורדות - הוא כולל את ה-Wizard מובנה!
+            </div>
+        </div>
+    </div>
+</body>
+</html>

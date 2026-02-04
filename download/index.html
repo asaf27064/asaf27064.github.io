@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הורדה - MasterKodi IL</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; padding: 30px 0; }
+        h1 { font-size: 2.5em; color: #00d9ff; margin-bottom: 10px; }
+        .back-link { color: #888; text-decoration: none; }
+        .back-link:hover { color: #00d9ff; }
+        
+        .detection-box {
+            background: linear-gradient(145deg, rgba(0, 217, 255, 0.15), rgba(0, 255, 136, 0.1));
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .detection-box h2 { color: #00ff88; margin-bottom: 15px; }
+        .detected-device { font-size: 1.3em; color: #fff; margin-bottom: 15px; }
+        
+        .download-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .download-section h2 { color: #00d9ff; margin-bottom: 20px; }
+        
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .download-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .download-card:hover { border-color: #00d9ff; transform: translateY(-3px); }
+        .download-card.recommended {
+            border: 2px solid #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+        .download-card .icon { font-size: 2.5em; margin-bottom: 15px; }
+        .download-card h3 { color: #fff; margin-bottom: 10px; }
+        .download-card .info { color: #888; font-size: 0.9em; margin-bottom: 15px; }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #00d9ff, #00ff88);
+            color: #1a1a2e;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        .download-btn:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4); }
+        
+        .badge {
+            display: inline-block;
+            background: #00ff88;
+            color: #1a1a2e;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .device-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .device-table th, .device-table td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .device-table th { color: #00d9ff; }
+        .device-table td { color: #aaa; }
+        
+        .downloader-code {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00d9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .downloader-code h3 { color: #00d9ff; margin-bottom: 15px; }
+        .code-display {
+            font-family: monospace;
+            font-size: 2em;
+            color: #00ff88;
+            letter-spacing: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 30px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .code-note { color: #888; font-size: 0.9em; margin-top: 10px; }
+
+        .nav-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        .nav-btn {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+        }
+        .nav-btn:hover { background: rgba(0, 217, 255, 0.2); border-color: #00d9ff; }
+        .nav-btn.selected { background: #00d9ff; color: #1a1a2e; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../" class="back-link">← חזרה לעמוד הראשי</a>
+            <h1>📥 הורדה</h1>
+        </header>
+
+        <div class="detection-box" id="detection">
+            <h2>🔍 זיהוי מכשיר</h2>
+            <div class="detected-device" id="detected-device">בודק...</div>
+            <p id="recommendation" style="color: #aaa;"></p>
+        </div>
+
+        <div class="downloader-code">
+            <h3>📱 קוד ל-Downloader</h3>
+            <div class="code-display">12345</div>
+            <p class="code-note">הקלד קוד זה באפליקציית Downloader בסטרימר</p>
+        </div>
+
+        <div class="nav-buttons">
+            <span class="nav-btn selected" onclick="showSection('android', this)">📱 אנדרואיד</span>
+            <span class="nav-btn" onclick="showSection('windows', this)">💻 Windows</span>
+            <span class="nav-btn" onclick="showSection('devices', this)">📋 טבלת מכשירים</span>
+        </div>
+
+        <div id="android-section" class="download-section">
+            <h2>📱 אנדרואיד</h2>
+            <div class="download-grid">
+                <div class="download-card" id="card-64">
+                    <div class="icon">📱</div>
+                    <h3>אנדרואיד 64-bit (arm64)</h3>
+                    <p class="info">לרוב הסטרימרים והטלפונים החדשים</p>
+                    <a href="#" class="download-btn">הורד APK</a>
+                </div>
+                <div class="download-card" id="card-32">
+                    <div class="icon">📟</div>
+                    <h3>אנדרואיד 32-bit (arm)</h3>
+                    <p class="info">למכשירים ישנים יותר</p>
+                    <a href="#" class="download-btn">הורד APK</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="windows-section" class="download-section" style="display:none;">
+            <h2>💻 Windows</h2>
+            <div class="download-grid">
+                <div class="download-card">
+                    <div class="icon">💻</div>
+                    <h3>Windows Portable</h3>
+                    <p class="info">קודי נייד עם Wizard מובנה</p>
+                    <a href="#" class="download-btn" style="opacity:0.5;">בקרוב</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="devices-section" class="download-section" style="display:none;">
+            <h2>📋 איזו גרסה מתאימה לי?</h2>
+            <table class="device-table">
+                <tr><th>מכשיר</th><th>גרסה</th></tr>
+                <tr><td>NVIDIA Shield (כל הדגמים)</td><td style="color:#00ff88">64-bit</td></tr>
+                <tr><td>Chromecast with Google TV</td><td style="color:#00ff88">64-bit</td></tr>
+                <tr><td>Amazon Fire Stick 4K / Max</td><td style="color:#00ff88">64-bit</td></tr>
+                <tr><td>Amazon Fire Stick (דור 2-3)</td><td style="color:#ffdd00">32-bit</td></tr>
+                <tr><td>Xiaomi Mi Box S</td><td style="color:#00ff88">64-bit</td></tr>
+                <tr><td>Samsung Galaxy (2020+)</td><td style="color:#00ff88">64-bit</td></tr>
+                <tr><td>טלפונים ישנים</td><td style="color:#ffdd00">32-bit</td></tr>
+                <tr><td>סטרימרים סיניים זולים</td><td style="color:#aaa">נסה 64, אחרת 32</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function detectDevice() {
+            const ua = navigator.userAgent.toLowerCase();
+            let device = 'לא ידוע', rec = '', is64 = true;
+            
+            if (ua.includes('android')) {
+                device = 'אנדרואיד';
+                is64 = !ua.includes('armv7');
+                rec = is64 ? 'מומלץ 64-bit' : 'מומלץ 32-bit';
+                if (ua.includes('shield')) device = 'NVIDIA Shield';
+                else if (ua.includes('aft')) device = 'Amazon Fire TV';
+            } else if (ua.includes('windows')) {
+                device = 'Windows';
+                rec = 'לחץ על Windows למעלה';
+            }
+            
+            document.getElementById('detected-device').innerHTML = '🖥️ זוהה: <strong>' + device + '</strong>';
+            document.getElementById('recommendation').textContent = rec;
+            
+            const card = document.getElementById(is64 ? 'card-64' : 'card-32');
+            card.classList.add('recommended');
+            card.querySelector('h3').innerHTML = '<span class="badge">מומלץ</span><br>' + card.querySelector('h3').textContent;
+        }
+        
+        function showSection(section, btn) {
+            document.getElementById('android-section').style.display = section === 'android' ? 'block' : 'none';
+            document.getElementById('windows-section').style.display = section === 'windows' ? 'block' : 'none';
+            document.getElementById('devices-section').style.display = section === 'devices' ? 'block' : 'none';
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+        
+        detectDevice();
+    </script>
+</body>
+</html>
