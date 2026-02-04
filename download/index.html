@@ -204,118 +204,29 @@
     </div>
 
     <script>
-        function getOS(uaL) {
-            if (/android/.test(uaL)) return "Android";
-            if (/windows nt/.test(uaL)) return "Windows";
-            if (/macintosh|mac os x/.test(uaL) && !/iphone|ipad|ipod/.test(uaL)) return "macOS";
-            if (/iphone|ipad|ipod/.test(uaL)) return "iOS";
-            if (/linux/.test(uaL)) return "Linux";
-            return "Unknown";
-        }
-
-        function guessArchFromUA(uaL) {
-            if (/(arm64|aarch64|x86_64|amd64|x64|win64|wow64)/.test(uaL)) return "64";
-            if (/(i686|ia32|x86|armv7|armv6)/.test(uaL)) return "32";
-            if (/armv8/.test(uaL)) return "64";
-            return "unknown";
-        }
-
-        function detectAndroidDeviceName(uaL) {
-            if (/shield/.test(uaL)) return "NVIDIA Shield";
-            if (/aft/.test(uaL)) return "Amazon Fire TV";
-            if (/mi box|mibox|xiaomi/.test(uaL)) return "Xiaomi / Mi Box";
-            if (/chromecast/.test(uaL)) return "Chromecast / Google TV";
-            return "Android";
-        }
-
-        function clearRecommendedBadges() {
-            ["card-64", "card-32"].forEach(id => {
-                const card = document.getElementById(id);
-                card.classList.remove("recommended");
-                const h3 = card.querySelector("h3");
-                if (h3 && h3.dataset && h3.dataset.badged === "1") {
-                    h3.dataset.badged = "0";
-                    const lines = h3.innerHTML.split("<br>");
-                    h3.textContent = (lines.length > 1) ? lines.slice(1).join(" ").trim() : h3.textContent;
-                }
-            });
-        }
-
-        async function detectDevice() {
-            const ua = navigator.userAgent || "";
-            const uaL = ua.toLowerCase();
-
-            const os = getOS(uaL);
-            let deviceLabel = os;
-            let arch = guessArchFromUA(uaL); // "64" | "32" | "unknown"
-            let confidence = (arch === "unknown") ? "low" : "high";
-
-            if (navigator.userAgentData) {
-                try {
-                    const high = await navigator.userAgentData.getHighEntropyValues([
-                        "platform",
-                        "platformVersion",
-                        "architecture",
-                        "bitness",
-                        "model"
-                    ]);
-
-                    if (high && high.bitness) {
-                        if (high.bitness === "64") { arch = "64"; confidence = "high"; }
-                        if (high.bitness === "32") { arch = "32"; confidence = "high"; }
-                    } else if (high && high.architecture) {
-                        if (/64|x86_64|arm64|aarch64/i.test(high.architecture)) { arch = "64"; confidence = "high"; }
-                        else if (/x86|86|arm/i.test(high.architecture) && arch === "unknown") { arch = "32"; confidence = "medium"; }
-                    }
-
-                    if (os === "Android" && high && high.model) {
-                        deviceLabel = high.model;
-                    }
-                } catch (e) {
-                    // ignore
-                }
+        function detectDevice() {
+            const ua = navigator.userAgent.toLowerCase();
+            let device = 'לא ידוע', rec = '', is64 = true;
+            
+            if (ua.includes('android')) {
+                device = 'אנדרואיד';
+                is64 = !ua.includes('armv7');
+                rec = is64 ? 'מומלץ 64-bit' : 'מומלץ 32-bit';
+                if (ua.includes('shield')) device = 'NVIDIA Shield';
+                else if (ua.includes('aft')) device = 'Amazon Fire TV';
+            } else if (ua.includes('windows')) {
+                device = 'Windows';
+                rec = 'לחץ על Windows למעלה';
             }
-
-            if (os === "Android") {
-                if (deviceLabel === "Android") deviceLabel = detectAndroidDeviceName(uaL);
-            }
-
-            let rec = "";
-            if (os === "Android") {
-                if (arch === "64") rec = "מומלץ Android 64-bit (arm64)";
-                else if (arch === "32") rec = "מומלץ Android 32-bit (arm)";
-                else rec = "לא הצלחתי לזהות 32/64 בוודאות. בדרך כלל 64-bit מתאים לרוב המכשירים. אם לא מתקין — נסה 32-bit.";
-            } else if (os === "Windows") {
-                if (arch === "32") rec = "זוהה Windows 32-bit";
-                else if (arch === "64") rec = "זוהה Windows 64-bit";
-                else rec = "זוהה Windows, אבל 32/64 לא ברור. ברוב המקרים זה 64-bit.";
-            } else {
-                rec = "זוהתה מערכת: " + os + ". העמוד הזה כרגע מציע Android/Windows בלבד.";
-            }
-
-            document.getElementById("detected-device").innerHTML =
-                "🖥️ זוהה: <strong>" + deviceLabel + "</strong>" +
-                (arch !== "unknown" ? " • <strong>" + arch + "-bit</strong>" : "") +
-                (confidence === "low" ? " • <span style='color:#ffdd00'>זיהוי לא ודאי</span>" : "");
-
-            document.getElementById("recommendation").textContent = rec;
-
-            clearRecommendedBadges();
-
-            if (os === "Android") {
-                const pick = (arch === "32") ? "card-32" : "card-64"; // default to 64 when unknown
-                const card = document.getElementById(pick);
-                card.classList.add("recommended");
-
-                const h3 = card.querySelector("h3");
-                if (h3 && h3.dataset.badged !== "1") {
-                    h3.dataset.badged = "1";
-                    const original = h3.textContent;
-                    h3.innerHTML = '<span class="badge">מומלץ</span><br>' + original;
-                }
-            }
+            
+            document.getElementById('detected-device').innerHTML = '🖥️ זוהה: <strong>' + device + '</strong>';
+            document.getElementById('recommendation').textContent = rec;
+            
+            const card = document.getElementById(is64 ? 'card-64' : 'card-32');
+            card.classList.add('recommended');
+            card.querySelector('h3').innerHTML = '<span class="badge">מומלץ</span><br>' + card.querySelector('h3').textContent;
         }
-
+        
         function showSection(section, btn) {
             document.getElementById('android-section').style.display = section === 'android' ? 'block' : 'none';
             document.getElementById('windows-section').style.display = section === 'windows' ? 'block' : 'none';
@@ -323,7 +234,7 @@
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
         }
-
+        
         detectDevice();
     </script>
 </body>
