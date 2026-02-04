@@ -49,29 +49,6 @@
         }
         .copy-btn:hover { background: #00d9ff; color: #1a1a2e; }
         
-        .repo-box {
-            background: linear-gradient(145deg, rgba(0, 217, 255, 0.1), rgba(0, 255, 136, 0.05));
-            border: 2px solid #00d9ff;
-            border-radius: 20px;
-            padding: 40px;
-            margin: 30px 0;
-            text-align: center;
-        }
-        .repo-box .icon { font-size: 4em; margin-bottom: 20px; }
-        
-        .download-btn {
-            display: inline-block;
-            background: linear-gradient(45deg, #00d9ff, #00ff88);
-            color: #1a1a2e;
-            padding: 15px 50px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2em;
-            transition: all 0.3s;
-        }
-        .download-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4); }
-        
         .instructions {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
@@ -88,30 +65,6 @@
             border-radius: 5px;
             color: #00ff88;
             font-family: monospace;
-            font-size: 0.95em;
-        }
-        
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            margin-top: 25px;
-        }
-        .benefit {
-            background: rgba(0, 217, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .benefit .icon { font-size: 1.5em; margin-bottom: 8px; }
-        
-        .important {
-            background: rgba(255, 200, 0, 0.15);
-            border: 1px solid rgba(255, 200, 0, 0.5);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            color: #ffd700;
         }
     </style>
 </head>
@@ -123,70 +76,33 @@
         </header>
 
         <div class="source-url">
-            <h3>🔗 כתובת המקור להוספה בקודי</h3>
+            <h3>🔗 כתובת המקור</h3>
             <div class="url-display">https://asaf27064.github.io/repo</div>
             <br>
-            <button class="copy-btn" onclick="copyUrl()">📋 העתק כתובת</button>
-            <p class="important" style="margin-top: 20px; text-align: right;">
-                ⚠️ שים לב! הכתובת היא עם <code>/repo</code> בסוף
-            </p>
-        </div>
-
-        <div class="repo-box">
-            <div class="icon">📦</div>
-            <h2 style="color: #00d9ff; margin-bottom: 15px;">MasterKodi IL Repository</h2>
-            <p style="color: #aaa; margin-bottom: 20px;">גרסה 1.0.0</p>
-            <a href="../repo/repository.masterkodi.il-1.0.0.zip" class="download-btn">📥 הורדה ישירה</a>
+            <button class="copy-btn" onclick="copyUrl()">📋 העתק</button>
         </div>
 
         <div class="instructions">
             <h3>📋 הוראות התקנה</h3>
             <ol>
-                <li>פתח את Kodi ולך ל: <code>Settings → File Manager</code></li>
-                <li>לחץ על <code>Add source</code></li>
-                <li>לחץ על <code>&lt;None&gt;</code></li>
+                <li><code>Settings → File Manager → Add source</code></li>
                 <li>הקלד: <code>https://asaf27064.github.io/repo</code></li>
-                <li>בשדה השם למטה כתוב: <code>MasterKodi</code></li>
-                <li>לחץ <code>OK</code></li>
-                <li>חזור למסך הראשי ולך ל: <code>Settings → Add-ons</code></li>
-                <li>בחר <code>Install from zip file</code></li>
-                <li>בחר את המקור <code>MasterKodi</code></li>
+                <li>שם: <code>MasterKodi</code> → OK</li>
+                <li><code>Settings → Add-ons → Install from zip file</code></li>
+                <li>בחר <code>MasterKodi</code></li>
+                <li>בחר <code>repository.masterkodi.il</code></li>
                 <li>בחר <code>repository.masterkodi.il-1.0.0.zip</code></li>
-                <li>חכה להודעת ההתקנה</li>
-                <li>בחר <code>Install from repository</code></li>
-                <li>בחר <code>MasterKodi IL Repository</code></li>
-                <li>לך ל-<code>Program add-ons</code> והתקן את ה-Wizard</li>
+                <li>חכה ל-"Add-on installed"</li>
+                <li><code>Install from repository → MasterKodi IL Repository</code></li>
+                <li><code>Program add-ons → MasterKodi IL Wizard</code> → Install</li>
             </ol>
-            
-            <div class="benefits">
-                <div class="benefit">
-                    <div class="icon">🔄</div>
-                    <strong>עדכונים אוטומטיים</strong>
-                </div>
-                <div class="benefit">
-                    <div class="icon">✅</div>
-                    <strong>מאומת ובטוח</strong>
-                </div>
-                <div class="benefit">
-                    <div class="icon">📦</div>
-                    <strong>גישה נוחה</strong>
-                </div>
-            </div>
         </div>
     </div>
-
     <script>
         function copyUrl() {
             navigator.clipboard.writeText('https://asaf27064.github.io/repo');
-            const btn = document.querySelector('.copy-btn');
-            btn.textContent = '✓ הועתק!';
-            btn.style.background = '#00ff88';
-            btn.style.color = '#1a1a2e';
-            setTimeout(() => {
-                btn.textContent = '📋 העתק כתובת';
-                btn.style.background = '';
-                btn.style.color = '';
-            }, 2000);
+            document.querySelector('.copy-btn').textContent = '✓ הועתק!';
+            setTimeout(() => document.querySelector('.copy-btn').textContent = '📋 העתק', 2000);
         }
     </script>
 </body>
