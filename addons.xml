@@ -17,6 +17,7 @@
     <addon id="plugin.program.masterkodi.il.wizard" name="MasterKodi IL Wizard" version="1.8.3" provider-name="MasterKodi IL">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
+            <import addon="script.module.requests" version="2.22.0"/>
         </requires>
         <extension point="xbmc.python.pluginsource" library="default.py">
             <provides>executable</provides>
