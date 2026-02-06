@@ -1,34 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <addons>
-    <addon id="repository.masterkodi.il" name="MasterKodi IL Repository" version="1.0.0" provider-name="MasterKodi IL">
-        <extension point="xbmc.addon.repository" name="MasterKodi IL Repository">
-            <dir>
-                <info compressed="false">https://asaf27064.github.io/addons.xml</info>
-                <checksum>https://asaf27064.github.io/addons.xml.md5</checksum>
-                <datadir zip="true">https://asaf27064.github.io/zips</datadir>
-            </dir>
-        </extension>
-        <extension point="xbmc.addon.metadata">
-            <summary lang="en">MasterKodi IL Repository</summary>
-            <summary lang="he">רפוזיטורי MasterKodi IL</summary>
-            <platform>all</platform>
-        </extension>
-    </addon>
-    <addon id="plugin.program.masterkodi.il.wizard" name="MasterKodi IL Wizard" version="1.8.3" provider-name="MasterKodi IL">
-        <requires>
-            <import addon="xbmc.python" version="3.0.0"/>
-            <import addon="script.module.requests" version="2.22.0"/>
-        </requires>
-        <extension point="xbmc.python.pluginsource" library="default.py">
-            <provides>executable</provides>
-        </extension>
-        <extension point="xbmc.service" library="service.py" start="startup"/>
-        <extension point="xbmc.addon.metadata">
-            <summary lang="en">MasterKodi IL Wizard</summary>
-            <summary lang="he">אשף MasterKodi IL</summary>
-            <description lang="en">Hebrew support for POV, FenLight, Arctic Fuse. Build installation and maintenance tools.</description>
-            <description lang="he">תמיכה בעברית ל-POV, FenLight, Arctic Fuse. התקנת בילדים וכלי תחזוקה.</description>
-            <platform>all</platform>
-        </extension>
-    </addon>
+<addon id="plugin.program.masterkodi.il.wizard" name="MasterKodi IL Wizard" version="1.8.9" provider-name="Asaf Ohana">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.requests" version="2.22.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.service" library="service.py" start="startup"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">MasterKodi IL Build Wizard with Hebrew Support</summary>
+        <summary lang="he">אשף MasterKodi IL עם תמיכה בעברית</summary>
+        <description lang="en">Complete build wizard with:
+- Build installation from GitHub
+- POV Hebrew Subtitles installation
+- FenLight Hebrew installation  
+- Arctic Fuse 3 Hebrew skin support
+- Maintenance tools
+- Backup and restore</description>
+        <description lang="he">אשף בילדים מלא עם:
+- התקנת בילדים מ-GitHub
+- התקנת כתוביות עבריות ל-POV
+- התקנת עברית ל-FenLight
+- תמיכה בסקין Arctic Fuse 3 עברית
+- כלי תחזוקה
+- גיבוי ושחזור</description>
+        <platform>all</platform>
+        <license>GPL-3.0-only</license>
+        <website>https://asaf27064.github.io/</website>
+        <assets>
+            <icon>resources/art/icon.png</icon>
+            <fanart>resources/art/fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon>
+<addon id="repository.masterkodi.il" name="MasterKodi IL Repository" version="1.0.0" provider-name="MasterKodi IL">
+    <extension point="xbmc.addon.repository" name="MasterKodi IL Repository">
+        <dir>
+            <info compressed="false">https://asaf27064.github.io/addons.xml</info>
+            <checksum>https://asaf27064.github.io/addons.xml.md5</checksum>
+            <datadir zip="true">https://asaf27064.github.io/zips</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">MasterKodi IL Repository</summary>
+        <summary lang="he">רפוזיטורי MasterKodi IL</summary>
+        <description lang="en">Official repository for MasterKodi IL Wizard.</description>
+        <description lang="he">רפוזיטורי רשמי של MasterKodi IL</description>
+        <platform>all</platform>
+    </extension>
+</addon>
 </addons>
