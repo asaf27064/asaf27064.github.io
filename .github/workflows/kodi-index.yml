@@ -1,0 +1,39 @@
+name: Update Kodi addons.xml
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "zips/**/*.zip"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build-index:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build addons.xml + md5
+        run: python .github/scripts/build_from_zips.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git status --porcelain | grep -qE '^( M|A ) (addons\.xml|addons\.xml\.md5)$'; then
+            git add addons.xml addons.xml.md5
+            git commit -m "Update addons.xml [skip ci]"
+            git push
+          else
+            echo "No index changes"
+          fi
