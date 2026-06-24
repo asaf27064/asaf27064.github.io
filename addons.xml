@@ -15,7 +15,7 @@
         <platform>all</platform>
     </extension>
 </addon>
-<addon id="plugin.program.masterkodi.il.wizard" name="MasterKodi IL Wizard" version="2.3.0" provider-name="Asaf Ohana">
+<addon id="plugin.program.masterkodi.il.wizard" name="MasterKodi IL Wizard" version="2.3.1" provider-name="Asaf Ohana">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.22.0"/>
@@ -30,14 +30,14 @@
         <description lang="en">Complete build wizard with:
 - Build installation from GitHub
 - POV Hebrew Subtitles installation
-- Gears Hebrew installation  
+- FenLight Hebrew installation  
 - Arctic Fuse 3 Hebrew skin support
 - Maintenance tools
 - Backup and restore</description>
         <description lang="he">אשף בילדים מלא עם:
 - התקנת בילדים מ-GitHub
 - התקנת כתוביות עבריות ל-POV
-- התקנת עברית ל-Gears
+- התקנת עברית ל-FenLight
 - תמיכה בסקין Arctic Fuse 3 עברית
 - כלי תחזוקה
 - גיבוי ושחזור</description>
