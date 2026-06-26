@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MasterKodi IL — סטטוס בילד</title>
+<!--
+  Static build health/status page for MasterKodi IL.
+  Deploy: copy to the gh-pages repo as  status/index.html
+  (a NEW path -- does not touch the existing live site).
+  Everything is client-side fetch; no build step, no secrets.
+-->
+<style>
+ :root{color-scheme:dark}
+ *{box-sizing:border-box}
+ body{margin:0;background:#0f1115;color:#e6e6e6;font-family:Segoe UI,Roboto,Arial,sans-serif}
+ .wrap{max-width:880px;margin:0 auto;padding:24px}
+ h1{font-size:22px;margin:0 0 2px}
+ .sub{color:#8b93a7;font-size:13px;margin-bottom:22px}
+ .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+ .card{background:#171a21;border:1px solid #232733;border-radius:12px;padding:16px}
+ .card h3{margin:0 0 10px;font-size:14px;color:#cfd6e6;display:flex;align-items:center;gap:8px}
+ .row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:#aeb6c6}
+ .row b{color:#e6e6e6;font-weight:600}
+ .dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+ .ok{background:#34d399}.warn{background:#fbbf24}.bad{background:#f87171}.idle{background:#64748b}
+ .badge{font-size:11px;padding:2px 8px;border-radius:20px;background:#232733;color:#9aa3b5}
+ .stat{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
+ .stat div{background:#141720;border-radius:8px;padding:8px 12px;text-align:center;min-width:84px}
+ .stat .n{font-size:20px;font-weight:700;color:#4fd1c5}.stat .l{font-size:11px;color:#8b93a7}
+ a{color:#4fd1c5;text-decoration:none}
+ .foot{color:#5a6275;font-size:11px;margin-top:26px;text-align:center}
+ .pill{font-size:11px;color:#9aa3b5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🛠️ MasterKodi IL — סטטוס</h1>
+  <div class="sub">בריאות הבילד, גרסאות הרכיבים ומאגר הכתוביות הקהילתי · <span id="ts">טוען…</span></div>
+  <div class="grid" id="grid"></div>
+  <div class="foot">
+    דף סטטוס סטטי · <a href="https://github.com/asaf27064/pov-modified-heb">pov-modified-heb</a> ·
+    <a id="poollink" href="#">מאגר כתוביות</a>
+  </div>
+</div>
+
+<script>
+const HEB  = 'https://raw.githubusercontent.com/asaf27064/pov-modified-heb/main/';
+const UP   = 'https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/addons.xml';
+const WIZ  = 'https://asaf27064.github.io/addons.xml';
+const POOL = 'https://masterkodi-subpool.asaf27064.workers.dev';
+document.getElementById('poollink').href = POOL + '/stats';
+
+async function jget(u){ const r = await fetch(u, {cache:'no-store'}); if(!r.ok) throw new Error(r.status); return r.json(); }
+async function tget(u){ const r = await fetch(u, {cache:'no-store'}); if(!r.ok) throw new Error(r.status); return r.text(); }
+function ver(xml, id){ const m = xml.match(new RegExp('<addon\\b[^>]*id="'+id.replace(/\./g,'\\.')+'"[^>]*version="([^"]+)"')); return m?m[1]:null; }
+function dot(c){ return '<span class="dot '+c+'"></span>'; }
+function card(title, statusClass, rows, extra){
+  return '<div class="card"><h3>'+dot(statusClass)+title+'</h3>'+
+    rows.map(r=>'<div class="row"><span>'+r[0]+'</span><b>'+(r[1]==null?'—':r[1])+'</b></div>').join('')+
+    (extra||'')+'</div>';
+}
+const grid = document.getElementById('grid');
+function add(html){ grid.insertAdjacentHTML('beforeend', html); }
+
+(async () => {
+  // ---- AI Subs ----
+  try{
+    const g = await jget(HEB+'gearsai_version.json');
+    add(card('כתוביות AI (gearsai)','ok',[['גרסה זמינה', g.version],['מזהה', g.addon_id||'service.subtitles.gearsai']]));
+  }catch(e){ add(card('כתוביות AI (gearsai)','bad',[['שגיאה', String(e)]])); }
+
+  // ---- Gears overlay + upstream gate ----
+  try{
+    const gv = await jget(HEB+'gears_version.json');
+    let upstream=null, cls='ok', note='שער פתוח (תואם עדכון)';
+    try{ upstream = ver(await tget(UP),'plugin.video.gears'); }catch(_){}
+    if(upstream && gv.compatible_gears && gv.compatible_gears!==upstream){ cls='warn'; note='ממתין לריפץ׳ (שער סגור)'; }
+    add(card('עברית Gears (overlay)',cls,[
+      ['גרסת overlay', gv.version],
+      ['תואם Gears', gv.compatible_gears],
+      ['Gears upstream', upstream||'?'],
+    ],'<div class="stat"><span class="pill">'+note+'</span></div>'));
+  }catch(e){ add(card('עברית Gears (overlay)','bad',[['שגיאה', String(e)]])); }
+
+  // ---- Skin ----
+  try{
+    const s = await jget(HEB+'skin_version.json');
+    add(card('עברית לסקין (Arctic Fuse)','ok',[['גרסה', s.version],['תואם', s.compatible_skin||s.min_skin||'—']]));
+  }catch(e){ add(card('עברית לסקין','idle',[['סטטוס','לא זמין']])); }
+
+  // ---- Wizard ----
+  try{
+    const w = ver(await tget(WIZ),'plugin.program.masterkodi.il.wizard');
+    add(card('Wizard','ok',[['גרסה בריפו', w]]));
+  }catch(e){ add(card('Wizard','warn',[['שגיאה', String(e)]])); }
+
+  // ---- Pool ----
+  try{
+    const p = await jget(POOL+'/v1/stats');
+    const t = p.totals||{};
+    add(card('מאגר קהילתי','ok',[],
+      '<div class="stat">'+
+      '<div><div class="n">'+(t.subs||0)+'</div><div class="l">כתוביות</div></div>'+
+      '<div><div class="n">'+(t.titles||0)+'</div><div class="l">כותרים</div></div>'+
+      '<div><div class="n">'+(t.downloads||0)+'</div><div class="l">הורדות</div></div>'+
+      '<div><div class="n">'+(p.failures||0)+'</div><div class="l">כשלונות</div></div>'+
+      '</div>'));
+  }catch(e){ add(card('מאגר קהילתי','bad',[['שגיאה', String(e)]])); }
+
+  // ---- build.txt ----
+  try{
+    const b = (await tget('https://asaf27064.github.io/assets/build.txt')).trim();
+    add(card('build.txt','ok',[['תוכן', b.slice(0,40)]]));
+  }catch(e){ /* optional */ }
+
+  document.getElementById('ts').textContent = new Date().toLocaleString('he-IL');
+})();
+</script>
+</body>
+</html>
