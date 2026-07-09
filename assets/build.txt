@@ -1,4 +1,4 @@
 # MasterKodi IL Build List
-# Format: name="Build Name" version="X.X" url="https://..." skin_url="https://..." description="..."
+# Format: name="Build Name" version="X.X" url="https://..." skin_url="https://..." nimbus_skin_url="https://github.com/asaf27064/asaf27064.github.io/releases/download/v1.0/nimbus.zip" description="..."
 
 name="MasterKodi IL (Gears)" version="1.0" url="https://github.com/asaf27064/asaf27064.github.io/releases/download/v1.0/FenLight_Estuary.zip" skin_url="https://github.com/asaf27064/asaf27064.github.io/releases/download/v1.0/Arctic_Fuse_Skin.zip" description="בילד MasterKodi IL מבוסס Gears — כתוביות עברית אוטומטיות, תרגום AI עם Gemini ותקצירים בעברית"
