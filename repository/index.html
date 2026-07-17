@@ -1,113 +1,56 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repository - MasterKodi IL</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container { max-width: 800px; margin: 0 auto; }
-        header { text-align: center; padding: 30px 0; }
-        h1 { font-size: 2.5em; color: #00d9ff; margin-bottom: 10px; }
-        .back-link { color: #888; text-decoration: none; }
-        .back-link:hover { color: #00d9ff; }
-        
-        .source-url {
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid #00d9ff;
-            border-radius: 10px;
-            padding: 25px;
-            margin: 30px 0;
-            text-align: center;
-        }
-        .source-url h3 { color: #00d9ff; margin-bottom: 15px; }
-        .url-display {
-            font-family: monospace;
-            font-size: 1.5em;
-            color: #00ff88;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px 30px;
-            border-radius: 8px;
-            display: inline-block;
-        }
-        .copy-btn {
-            background: rgba(0, 217, 255, 0.2);
-            border: 1px solid #00d9ff;
-            color: #00d9ff;
-            padding: 10px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-size: 1.1em;
-        }
-        .copy-btn:hover { background: #00d9ff; color: #1a1a2e; }
-        
-        .instructions {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .instructions h3 { color: #00d9ff; margin-bottom: 20px; }
-        .instructions ol { padding-right: 25px; }
-        .instructions li { margin: 15px 0; line-height: 1.8; color: #ccc; }
-        code {
-            background: rgba(0, 255, 136, 0.2);
-            padding: 4px 12px;
-            border-radius: 5px;
-            color: #00ff88;
-            font-family: monospace;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repository — MasterKodi IL</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .step { display: flex; gap: 14px; padding: 12px 0; }
+  .step .num {
+    width: 34px; height: 34px; flex: none; border-radius: 50%;
+    background: var(--bg2); border: 1px solid var(--line); color: var(--accent);
+    display: grid; place-items: center; font-weight: 800;
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <a href="../" class="back-link">← חזרה לעמוד הראשי</a>
-            <h1>📦 Repository</h1>
-        </header>
+<div class="wrap">
 
-        <div class="source-url">
-            <h3>🔗 כתובת המקור</h3>
-            <div class="url-display">https://asaf27064.github.io/repo</div>
-            <br>
-            <button class="copy-btn" onclick="copyUrl()">📋 העתק</button>
-        </div>
-
-        <div style="text-align: center; margin: 20px 0;">
-            <a href="../zips/repository.masterkodi.il/repository.masterkodi.il-1.0.0.zip" style="display: inline-block; background: linear-gradient(45deg, #00d9ff, #00ff88); color: #1a1a2e; padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.2em;">📥 הורד Repository ZIP</a>
-        </div>
-
-        <div class="instructions">
-            <h3>📋 הוראות התקנה</h3>
-            <ol>
-                <li><code>Settings → File Manager → Add source</code></li>
-                <li>הקלד: <code>https://asaf27064.github.io/repo</code></li>
-                <li>שם: <code>MasterKodi</code> → OK</li>
-                <li><code>Settings → Add-ons → Install from zip file</code></li>
-                <li>בחר <code>MasterKodi</code></li>
-                <li>בחר <code>repository.masterkodi.il</code></li>
-                <li>בחר <code>repository.masterkodi.il-1.0.0.zip</code></li>
-                <li>חכה ל-"Add-on installed"</li>
-                <li><code>Install from repository → MasterKodi IL Repository</code></li>
-                <li><code>Program add-ons → MasterKodi IL Wizard</code> → Install</li>
-            </ol>
-        </div>
+  <div class="site-head">
+    <div class="logo">MK</div>
+    <div>
+      <div class="t1">MasterKodi IL</div>
+      <div class="t2">Repository לקודי</div>
     </div>
-    <script>
-        function copyUrl() {
-            navigator.clipboard.writeText('https://asaf27064.github.io/repo');
-            document.querySelector('.copy-btn').textContent = '✓ הועתק!';
-            setTimeout(() => document.querySelector('.copy-btn').textContent = '📋 העתק', 2000);
-        }
-    </script>
+    <div class="spacer"></div>
+    <a class="badge" href="../">עמוד ראשי</a>
+  </div>
+
+  <h1 class="page">Repository</h1>
+  <p class="lead">להתקנת האשף על קודי קיים דרך מקור (Source) — או בהורדת ZIP ישירה.</p>
+
+  <div class="grid g2">
+    <div class="card">
+      <div style="font-weight:700; margin-bottom:10px">דרך 1 — הוספת מקור בקודי</div>
+      <div class="step"><div class="num">1</div><div>הגדרות ← מנהל הקבצים ← הוסף מקור</div></div>
+      <div class="step"><div class="num">2</div><div>הזינו: <b class="mono">https://asaf27064.github.io</b></div></div>
+      <div class="step"><div class="num">3</div><div>הגדרות ← תוספים ← התקנה מקובץ ZIP ← המקור שהוספתם ← <span class="mono">repository.masterkodi.il-1.0.0.zip</span></div></div>
+      <div class="step"><div class="num">4</div><div>התקנה ממאגר ← MasterKodi IL Repository ← תוספי תוכנה ← MasterKodi IL Wizard</div></div>
+    </div>
+
+    <div class="card">
+      <div style="font-weight:700; margin-bottom:10px">דרך 2 — הורדה ישירה</div>
+      <p class="muted" style="font-size:.95rem; margin-bottom:14px">הורידו את קובץ ה‑Repository והתקינו בקודי מקובץ ZIP:</p>
+      <a class="btn" href="../zips/repository.masterkodi.il/repository.masterkodi.il-1.0.0.zip">הורדת Repository‏ (ZIP)</a>
+      <hr class="sep">
+      <p class="muted" style="font-size:.9rem">מחפשים את האשף עצמו? <a href="../wizard/">עמוד ה‑Wizard</a> — או פשוט <a href="../download/">התקנת הבילד המלא</a> שכולל הכל.</p>
+    </div>
+  </div>
+
+  <div class="footer"><a href="../download/">הורדת הבילד</a> &nbsp;·&nbsp; <a href="../status/">סטטוס מערכת</a></div>
+</div>
 </body>
 </html>

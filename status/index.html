@@ -1,120 +1,112 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MasterKodi IL — סטטוס בילד</title>
-<!--
-  Static build health/status page for MasterKodi IL.
-  Deploy: copy to the gh-pages repo as  status/index.html
-  (a NEW path -- does not touch the existing live site).
-  Everything is client-side fetch; no build step, no secrets.
--->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סטטוס מערכת — MasterKodi IL</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
 <style>
- :root{color-scheme:dark}
- *{box-sizing:border-box}
- body{margin:0;background:#0f1115;color:#e6e6e6;font-family:Segoe UI,Roboto,Arial,sans-serif}
- .wrap{max-width:880px;margin:0 auto;padding:24px}
- h1{font-size:22px;margin:0 0 2px}
- .sub{color:#8b93a7;font-size:13px;margin-bottom:22px}
- .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
- .card{background:#171a21;border:1px solid #232733;border-radius:12px;padding:16px}
- .card h3{margin:0 0 10px;font-size:14px;color:#cfd6e6;display:flex;align-items:center;gap:8px}
- .row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:#aeb6c6}
- .row b{color:#e6e6e6;font-weight:600}
- .dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
- .ok{background:#34d399}.warn{background:#fbbf24}.bad{background:#f87171}.idle{background:#64748b}
- .badge{font-size:11px;padding:2px 8px;border-radius:20px;background:#232733;color:#9aa3b5}
- .stat{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
- .stat div{background:#141720;border-radius:8px;padding:8px 12px;text-align:center;min-width:84px}
- .stat .n{font-size:20px;font-weight:700;color:#4fd1c5}.stat .l{font-size:11px;color:#8b93a7}
- a{color:#4fd1c5;text-decoration:none}
- .foot{color:#5a6275;font-size:11px;margin-top:26px;text-align:center}
- .pill{font-size:11px;color:#9aa3b5}
+  .rows { display: grid; gap: 14px; }
+  .rowcard { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .rowcard .name { font-weight: 700; min-width: 180px; }
+  .rowcard .val { color: var(--muted); font-size: .95rem; }
+  .runline { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+  .runline:last-child { border-bottom: 0; }
+  .runline .nm { font-weight: 600; min-width: 170px; }
+  .runline .tm { color: var(--muted); margin-inline-start: auto; font-size: .85rem; }
+  .ok { color: var(--good); } .run { color: var(--warn); } .fail { color: var(--bad); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>🛠️ MasterKodi IL — סטטוס</h1>
-  <div class="sub">בריאות הבילד, גרסאות הרכיבים ומאגר הכתוביות הקהילתי · <span id="ts">טוען…</span></div>
-  <div class="grid" id="grid"></div>
-  <div class="foot">
-    דף סטטוס סטטי · <a href="https://github.com/asaf27064/pov-modified-heb">pov-modified-heb</a> ·
-    <a id="poollink" href="#">מאגר כתוביות</a>
+
+  <div class="site-head">
+    <div class="logo">MK</div>
+    <div>
+      <div class="t1">MasterKodi IL</div>
+      <div class="t2">סטטוס מערכת</div>
+    </div>
+    <div class="spacer"></div>
+    <a class="badge" href="../">עמוד ראשי</a>
+    <a class="badge" href="../download/">הורדה</a>
   </div>
+
+  <h1 class="page">סטטוס מערכת</h1>
+  <p class="lead">מצב חי של הבילד: גירסאות נוכחיות, טריות ההתקנות, ובניות שרצות כרגע.</p>
+
+  <div class="rows">
+    <div class="card rowcard">
+      <span class="name">גירסת אשף (Wizard)</span>
+      <b class="mono" id="wiz-ver">…</b>
+      <span class="val" id="fleet-updated"></span>
+    </div>
+    <div class="card rowcard">
+      <span class="name">גירסת קונפיג</span>
+      <b class="mono" id="cfg-ver">…</b>
+      <span class="val">מספר תוספים בבילד: <b class="mono" id="addon-count">…</b></span>
+    </div>
+    <div class="card rowcard">
+      <span class="name">התקנות (EXE / APK)</span>
+      <span class="val" id="installers-line">…</span>
+    </div>
+    <div class="card" style="width:100%">
+      <div style="font-weight:700; margin-bottom:8px">ריצות אחרונות של מערכת הבנייה</div>
+      <div id="runs">טוען…</div>
+    </div>
+  </div>
+
+  <div class="footer">מתעדכן אוטומטית כל דקה &nbsp;·&nbsp; <a href="https://github.com/asaf27064/MasterKodi-IL-Build" class="mono">MasterKodi-IL-Build</a></div>
 </div>
 
 <script>
-const HEB  = 'https://raw.githubusercontent.com/asaf27064/pov-modified-heb/main/';
-const UP   = 'https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/addons.xml';
-const WIZ  = 'https://asaf27064.github.io/addons.xml';
-const POOL = 'https://masterkodi-subpool.asaf27064.workers.dev';
-document.getElementById('poollink').href = POOL + '/stats';
+(function () {
+  var REPO = 'asaf27064/MasterKodi-IL-Build';
+  function relTime(iso) {
+    var diff = (Date.now() - new Date(iso).getTime()) / 1000;
+    if (diff < 3600) return 'לפני ' + Math.max(1, Math.round(diff / 60)) + ' דקות';
+    if (diff < 86400) return 'לפני ' + Math.round(diff / 3600) + ' שעות';
+    return 'לפני ' + Math.round(diff / 86400) + ' ימים';
+  }
+  function get(u) { return fetch(u, {cache: 'no-store'}).then(function (r) { if (!r.ok) throw 0; return r.json(); }); }
 
-async function jget(u){ const r = await fetch(u, {cache:'no-store'}); if(!r.ok) throw new Error(r.status); return r.json(); }
-async function tget(u){ const r = await fetch(u, {cache:'no-store'}); if(!r.ok) throw new Error(r.status); return r.text(); }
-function ver(xml, id){ const m = xml.match(new RegExp('<addon\\b[^>]*id="'+id.replace(/\./g,'\\.')+'"[^>]*version="([^"]+)"')); return m?m[1]:null; }
-function dot(c){ return '<span class="dot '+c+'"></span>'; }
-function card(title, statusClass, rows, extra){
-  return '<div class="card"><h3>'+dot(statusClass)+title+'</h3>'+
-    rows.map(r=>'<div class="row"><span>'+r[0]+'</span><b>'+(r[1]==null?'—':r[1])+'</b></div>').join('')+
-    (extra||'')+'</div>';
-}
-const grid = document.getElementById('grid');
-function add(html){ grid.insertAdjacentHTML('beforeend', html); }
+  function refresh() {
+    get('https://raw.githubusercontent.com/' + REPO + '/main/manifest.json').then(function (m) {
+      var wiz = (m.addons || []).filter(function (a) { return a.id === 'plugin.program.masterkodi.il.wizard'; })[0];
+      if (wiz) document.getElementById('wiz-ver').textContent = wiz.version;
+      if (m.config) document.getElementById('cfg-ver').textContent = m.config.version;
+      document.getElementById('addon-count').textContent = (m.addons || []).length;
+      if (m.generated_utc) document.getElementById('fleet-updated').textContent = 'עודכן ' + relTime(m.generated_utc);
+    }).catch(function () {});
 
-(async () => {
-  // ---- AI Subs ----
-  try{
-    const g = await jget(HEB+'gearsai_version.json');
-    add(card('כתוביות AI (gearsai)','ok',[['גרסה זמינה', g.version],['מזהה', g.addon_id||'service.subtitles.gearsai']]));
-  }catch(e){ add(card('כתוביות AI (gearsai)','bad',[['שגיאה', String(e)]])); }
+    get('https://api.github.com/repos/' + REPO + '/releases/tags/installers').then(function (rel) {
+      var parts = (rel.assets || []).map(function (a) {
+        var short = a.name.indexOf('.exe') !== -1 ? 'EXE' : (a.name.indexOf('arm64') !== -1 ? 'APK 64' : 'APK 32');
+        return short + ' נבנה ' + relTime(a.updated_at);
+      });
+      document.getElementById('installers-line').textContent = parts.join(' · ');
+    }).catch(function () {});
 
-  // ---- Gears overlay + upstream gate ----
-  try{
-    const gv = await jget(HEB+'gears_version.json');
-    let upstream=null, cls='ok', note='שער פתוח (תואם עדכון)';
-    try{ upstream = ver(await tget(UP),'plugin.video.gears'); }catch(_){}
-    if(upstream && gv.compatible_gears && gv.compatible_gears!==upstream){ cls='warn'; note='ממתין לריפץ׳ (שער סגור)'; }
-    add(card('עברית Gears (overlay)',cls,[
-      ['גרסת overlay', gv.version],
-      ['תואם Gears', gv.compatible_gears],
-      ['Gears upstream', upstream||'?'],
-    ],'<div class="stat"><span class="pill">'+note+'</span></div>'));
-  }catch(e){ add(card('עברית Gears (overlay)','bad',[['שגיאה', String(e)]])); }
-
-  // ---- Skin ----
-  try{
-    const s = await jget(HEB+'skin_version.json');
-    add(card('עברית לסקין (Arctic Fuse)','ok',[['גרסה', s.version],['תואם', s.compatible_skin||s.min_skin||'—']]));
-  }catch(e){ add(card('עברית לסקין','idle',[['סטטוס','לא זמין']])); }
-
-  // ---- Wizard ----
-  try{
-    const w = ver(await tget(WIZ),'plugin.program.masterkodi.il.wizard');
-    add(card('Wizard','ok',[['גרסה בריפו', w]]));
-  }catch(e){ add(card('Wizard','warn',[['שגיאה', String(e)]])); }
-
-  // ---- Pool ----
-  try{
-    const p = await jget(POOL+'/v1/stats');
-    const t = p.totals||{};
-    add(card('מאגר קהילתי','ok',[],
-      '<div class="stat">'+
-      '<div><div class="n">'+(t.subs||0)+'</div><div class="l">כתוביות</div></div>'+
-      '<div><div class="n">'+(t.titles||0)+'</div><div class="l">כותרים</div></div>'+
-      '<div><div class="n">'+(t.downloads||0)+'</div><div class="l">הורדות</div></div>'+
-      '<div><div class="n">'+(p.failures||0)+'</div><div class="l">כשלונות</div></div>'+
-      '</div>'));
-  }catch(e){ add(card('מאגר קהילתי','bad',[['שגיאה', String(e)]])); }
-
-  // ---- build.txt ----
-  try{
-    const b = (await tget('https://asaf27064.github.io/assets/build.txt')).trim();
-    add(card('build.txt','ok',[['תוכן', b.slice(0,40)]]));
-  }catch(e){ /* optional */ }
-
-  document.getElementById('ts').textContent = new Date().toLocaleString('he-IL');
+    get('https://api.github.com/repos/' + REPO + '/actions/runs?per_page=10').then(function (r) {
+      var html = '';
+      (r.workflow_runs || []).slice(0, 8).forEach(function (w) {
+        var cls = 'run', txt = 'רץ כעת';
+        if (w.status === 'completed') {
+          cls = w.conclusion === 'success' ? 'ok' : 'fail';
+          txt = w.conclusion === 'success' ? 'הצליח' : 'נכשל';
+        }
+        html += '<div class="runline"><span class="nm mono">' + w.name + '</span>' +
+                '<span class="' + cls + '">' + txt + '</span>' +
+                '<span class="tm">' + relTime(w.created_at) + '</span></div>';
+      });
+      document.getElementById('runs').innerHTML = html || 'אין ריצות';
+    }).catch(function () {
+      document.getElementById('runs').textContent = 'לא ניתן לטעון (מגבלת קצב) — נסו שוב בעוד דקה';
+    });
+  }
+  refresh();
+  setInterval(refresh, 60000);
 })();
 </script>
 </body>

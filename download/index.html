@@ -1,184 +1,228 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הורדה - MasterKodi IL</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container { max-width: 900px; margin: 0 auto; }
-        header { text-align: center; padding: 30px 0; }
-        h1 { font-size: 2.5em; color: #00d9ff; margin-bottom: 10px; }
-        .back-link { color: #888; text-decoration: none; }
-        .back-link:hover { color: #00d9ff; }
-        
-        .download-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .download-section h2 { color: #00d9ff; margin-bottom: 20px; }
-        
-        .download-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .download-card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        .download-card:hover { border-color: #00d9ff; transform: translateY(-3px); }
-        .download-card .icon { font-size: 2.5em; margin-bottom: 15px; }
-        .download-card h3 { color: #fff; margin-bottom: 10px; }
-        .download-card .info { color: #888; font-size: 0.9em; margin-bottom: 15px; }
-        
-        .download-btn {
-            display: inline-block;
-            background: linear-gradient(45deg, #00d9ff, #00ff88);
-            color: #1a1a2e;
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 15px;
-            transition: all 0.3s;
-        }
-        .download-btn:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4); }
-        
-        .device-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .device-table th, .device-table td {
-            padding: 12px;
-            text-align: right;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .device-table th { color: #00d9ff; }
-        .device-table td { color: #aaa; }
-        
-        .downloader-code {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid #00d9ff;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        .downloader-code h3 { color: #00d9ff; margin-bottom: 15px; }
-        .code-display {
-            font-family: monospace;
-            font-size: 2em;
-            color: #00ff88;
-            letter-spacing: 5px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px 30px;
-            border-radius: 8px;
-            display: inline-block;
-        }
-        .code-note { color: #888; font-size: 0.9em; margin-top: 10px; }
-
-        .nav-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
-        .nav-btn {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1.1em;
-            transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.2);
-            cursor: pointer;
-        }
-        .nav-btn:hover { background: rgba(0, 217, 255, 0.2); border-color: #00d9ff; }
-        .nav-btn.selected { background: #00d9ff; color: #1a1a2e; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הורדה — MasterKodi IL</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .statusbar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+    border: 1px solid var(--line); background: var(--bg2);
+    border-radius: var(--radius); padding: 14px 18px; margin-bottom: 22px;
+    font-size: .95rem;
+  }
+  .statusbar .kv { color: var(--muted); }
+  .statusbar .kv b { color: var(--text); font-weight: 700; }
+  .dl-card { display: flex; flex-direction: column; gap: 12px; }
+  .dl-card .head { display: flex; align-items: center; gap: 14px; }
+  .dl-card .ico {
+    width: 52px; height: 52px; border-radius: 14px; flex: none;
+    background: var(--bg2); border: 1px solid var(--line);
+    display: grid; place-items: center; color: var(--accent);
+  }
+  .dl-card h3 { font-size: 1.2rem; }
+  .dl-card .sub { color: var(--muted); font-size: .92rem; margin-top: -2px; }
+  .dl-card .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 30px; }
+  .dl-card .btn { margin-top: 4px; }
+  .primary-card { border-color: rgba(41,211,245,.45); box-shadow: 0 0 40px rgba(41,211,245,.07) inset; }
+  .hint { font-size: .85rem; color: var(--muted); }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <a href="../" class="back-link">← חזרה לעמוד הראשי</a>
-            <h1>📥 הורדה</h1>
-        </header>
+<div class="wrap">
 
-        <div class="nav-buttons">
-            <span class="nav-btn selected" onclick="showSection('android', this)">📱 אנדרואיד</span>
-            <span class="nav-btn" onclick="showSection('windows', this)">💻 Windows</span>
-            <span class="nav-btn" onclick="showSection('devices', this)">📋 טבלת מכשירים</span>
-        </div>
+  <div class="site-head">
+    <div class="logo">MK</div>
+    <div>
+      <div class="t1">MasterKodi IL</div>
+      <div class="t2">הבילד הישראלי לקודי</div>
+    </div>
+    <div class="spacer"></div>
+    <a class="badge" href="../">עמוד ראשי</a>
+  </div>
 
-        <div id="android-section" class="download-section">
-            <h2>📱 אנדרואיד</h2>
-            <div class="download-grid">
-                <div class="download-card">
-                    <div class="icon">📱</div>
-                    <h3>אנדרואיד 64-bit (arm64)</h3>
-                    <p class="info">לרוב הסטרימרים והטלפונים החדשים</p>
-                    <a href="https://github.com/asaf27064/MasterKodi-IL-Build/releases/download/installers/MasterKodiIL-arm64-v8a.apk" class="download-btn">הורד APK</a>
-                </div>
-                <div class="download-card">
-                    <div class="icon">📟</div>
-                    <h3>אנדרואיד 32-bit (arm)</h3>
-                    <p class="info">למכשירים ישנים יותר</p>
-                    <a href="https://github.com/asaf27064/MasterKodi-IL-Build/releases/download/installers/MasterKodiIL-armeabi-v7a.apk" class="download-btn">הורד APK</a>
-                </div>
-            </div>
-        </div>
+  <h1 class="page">הורדת הבילד</h1>
+  <p class="lead">בחרו את הגירסה למכשיר שלכם. ההתקנה כוללת את קודי + האשף — הכל מתעדכן אוטומטית לאחר ההתקנה.</p>
 
-        <div id="windows-section" class="download-section" style="display:none;">
-            <h2>💻 Windows</h2>
-            <div class="download-grid">
-                <div class="download-card">
-                    <div class="icon">💻</div>
-                    <h3>Windows</h3>
-                    <p class="info">קודי עם Wizard מובנה</p>
-                    <a href="https://github.com/asaf27064/MasterKodi-IL-Build/releases/download/installers/MasterKodiIL_Setup.exe" class="download-btn">הורד</a>
-                </div>
-            </div>
-        </div>
+  <!-- live status -->
+  <div class="statusbar" id="statusbar">
+    <span class="badge" id="global-badge"><span class="dot"></span><span id="global-badge-text">בודק סטטוס…</span></span>
+    <span class="kv">גירסת אשף: <b id="wiz-ver" class="mono">…</b></span>
+    <span class="kv">קונפיג: <b id="cfg-ver" class="mono">…</b></span>
+    <span class="kv" id="fleet-updated"></span>
+  </div>
 
-        <div id="devices-section" class="download-section" style="display:none;">
-            <h2>📋 איזו גרסה מתאימה לי?</h2>
-            <table class="device-table">
-                <tr><th>מכשיר</th><th>גרסה</th></tr>
-                <tr><td>NVIDIA Shield (כל הדגמים)</td><td style="color:#00ff88">64-bit</td></tr>
-                <tr><td>Chromecast with Google TV</td><td style="color:#00ff88">64-bit</td></tr>
-                <tr><td>Amazon Fire Stick 4K / Max</td><td style="color:#00ff88">64-bit</td></tr>
-                <tr><td>Amazon Fire Stick (דור 2-3)</td><td style="color:#ffdd00">32-bit</td></tr>
-                <tr><td>Xiaomi Mi Box S</td><td style="color:#00ff88">64-bit</td></tr>
-                <tr><td>Samsung Galaxy (2020+)</td><td style="color:#00ff88">64-bit</td></tr>
-                <tr><td>טלפונים ישנים</td><td style="color:#ffdd00">32-bit</td></tr>
-                <tr><td>סטרימרים סיניים זולים</td><td style="color:#aaa">נסה 64, אחרת 32</td></tr>
-            </table>
-        </div>
+  <div class="grid g2">
 
-        <div class="downloader-code">
-            <h3>📱 קוד ל-Downloader</h3>
-            <div class="code-display">9242817</div>
-            <p class="code-note">הקלד קוד זה באפליקציית Downloader בסטרימר</p>
+    <!-- Android 64 - primary -->
+    <div class="card dl-card primary-card">
+      <div class="head">
+        <div class="ico">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
+        <div>
+          <h3>Android TV / סטרימר — 64‑bit</h3>
+          <div class="sub">מתאים לרוב המכשירים: Shield, Google TV, Fire Stick 4K, Mi Box S</div>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="badge" data-badge="apk"><span class="dot"></span><span data-badge-text="apk">…</span></span>
+        <span class="hint" data-built="MasterKodiIL-arm64-v8a.apk"></span>
+      </div>
+      <a class="btn" id="firstfocus" href="https://github.com/asaf27064/MasterKodi-IL-Build/releases/download/installers/MasterKodiIL-arm64-v8a.apk">
+        הורדת APK ‏64‑bit
+      </a>
     </div>
 
-    <script>
-        function showSection(section, btn) {
-            document.getElementById('android-section').style.display = section === 'android' ? 'block' : 'none';
-            document.getElementById('windows-section').style.display = section === 'windows' ? 'block' : 'none';
-            document.getElementById('devices-section').style.display = section === 'devices' ? 'block' : 'none';
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
+    <!-- Android 32 -->
+    <div class="card dl-card">
+      <div class="head">
+        <div class="ico">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+        </div>
+        <div>
+          <h3>Android — 32‑bit</h3>
+          <div class="sub">למכשירים ישנים: Fire Stick דור 2‑3, סטרימרים ישנים</div>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="badge" data-badge="apk32"><span class="dot"></span><span data-badge-text="apk32">…</span></span>
+        <span class="hint" data-built="MasterKodiIL-armeabi-v7a.apk"></span>
+      </div>
+      <a class="btn secondary" href="https://github.com/asaf27064/MasterKodi-IL-Build/releases/download/installers/MasterKodiIL-armeabi-v7a.apk">
+        הורדת APK ‏32‑bit
+      </a>
+    </div>
+
+    <!-- Windows -->
+    <div class="card dl-card">
+      <div class="head">
+        <div class="ico">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M3 9h18M7 21h10"/></svg>
+        </div>
+        <div>
+          <h3>Windows</h3>
+          <div class="sub">תוכנת התקנה מלאה למחשב — קודי + הבילד</div>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="badge" data-badge="exe"><span class="dot"></span><span data-badge-text="exe">…</span></span>
+        <span class="hint" data-built="MasterKodiIL_Setup.exe"></span>
+      </div>
+      <a class="btn secondary" href="https://github.com/asaf27064/MasterKodi-IL-Build/releases/download/installers/MasterKodiIL_Setup.exe">
+        הורדה ל‑Windows‏ (EXE)
+      </a>
+    </div>
+
+    <!-- which device -->
+    <details class="dev card" style="padding:0">
+      <summary>איזו גירסה מתאימה למכשיר שלי?</summary>
+      <div class="inner">
+        <table class="clean">
+          <tr><th>מכשיר</th><th>גירסה</th></tr>
+          <tr><td>NVIDIA Shield (כל הדגמים)</td><td style="color:var(--good)">64‑bit</td></tr>
+          <tr><td>Chromecast with Google TV</td><td style="color:var(--good)">64‑bit</td></tr>
+          <tr><td>Fire Stick 4K / 4K Max</td><td style="color:var(--good)">64‑bit</td></tr>
+          <tr><td>Fire Stick דור 2‑3</td><td style="color:var(--warn)">32‑bit</td></tr>
+          <tr><td>Xiaomi Mi Box S</td><td style="color:var(--good)">64‑bit</td></tr>
+          <tr><td>טלפון / טאבלט אנדרואיד חדש</td><td style="color:var(--good)">64‑bit</td></tr>
+          <tr><td>לא בטוחים?</td><td style="color:var(--warn)">נסו 64‑bit, ואם לא מתקין — 32‑bit</td></tr>
+        </table>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="footer">
+    ההתקנה מתעדכנת אוטומטית — אין צורך להוריד שוב בעתיד.
+    &nbsp;·&nbsp; <a href="../repository/">Repository</a>
+    &nbsp;·&nbsp; <a href="../status/">סטטוס מערכת</a>
+  </div>
+</div>
+
+<script>
+(function () {
+  var REPO = 'asaf27064/MasterKodi-IL-Build';
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return document.querySelectorAll(s); };
+
+  function relTime(iso) {
+    var d = new Date(iso), diff = (Date.now() - d.getTime()) / 1000;
+    if (diff < 3600) return 'לפני ' + Math.max(1, Math.round(diff / 60)) + ' דקות';
+    if (diff < 86400) return 'לפני ' + Math.round(diff / 3600) + ' שעות';
+    if (diff < 172800) return 'אתמול';
+    return 'לפני ' + Math.round(diff / 86400) + ' ימים';
+  }
+  function get(u) {
+    return fetch(u, { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    });
+  }
+  function setBadge(key, cls, text) {
+    $$('[data-badge="' + key + '"]').forEach(function (b) { b.className = 'badge ' + cls; });
+    $$('[data-badge-text="' + key + '"]').forEach(function (b) { b.textContent = text; });
+  }
+
+  function refresh() {
+    // 1) fleet versions from the manifest
+    get('https://raw.githubusercontent.com/' + REPO + '/main/manifest.json')
+      .then(function (m) {
+        var wiz = (m.addons || []).filter(function (a) { return a.id === 'plugin.program.masterkodi.il.wizard'; })[0];
+        if (wiz) $('#wiz-ver').textContent = wiz.version;
+        if (m.config) $('#cfg-ver').textContent = m.config.version;
+        if (m.generated_utc) $('#fleet-updated').textContent = 'עודכן ' + relTime(m.generated_utc);
+      }).catch(function () {});
+
+    // 2) installer freshness
+    get('https://api.github.com/repos/' + REPO + '/releases/tags/installers')
+      .then(function (rel) {
+        (rel.assets || []).forEach(function (a) {
+          $$('[data-built="' + a.name + '"]').forEach(function (el) {
+            el.textContent = 'נבנה ' + relTime(a.updated_at);
+          });
+        });
+      }).catch(function () {});
+
+    // 3) is a new build running right now?
+    get('https://api.github.com/repos/' + REPO + '/actions/runs?per_page=25')
+      .then(function (r) {
+        var live = (r.workflow_runs || []).filter(function (w) {
+          return (w.status === 'in_progress' || w.status === 'queued');
+        }).map(function (w) { return w.name; });
+        var apkBuilding = live.indexOf('build-apk') !== -1;
+        var exeBuilding = live.indexOf('build-exe') !== -1;
+        var fleetBuilding = live.indexOf('build-and-release') !== -1;
+
+        setBadge('apk',  apkBuilding ? 'warn' : 'good', apkBuilding ? 'גירסה חדשה נבנית כעת' : 'הגירסה האחרונה');
+        setBadge('apk32', apkBuilding ? 'warn' : 'good', apkBuilding ? 'גירסה חדשה נבנית כעת' : 'הגירסה האחרונה');
+        setBadge('exe',  exeBuilding ? 'warn' : 'good', exeBuilding ? 'גירסה חדשה נבנית כעת' : 'הגירסה האחרונה');
+
+        var g = $('#global-badge'), gt = $('#global-badge-text');
+        if (apkBuilding || exeBuilding || fleetBuilding) {
+          g.className = 'badge warn';
+          gt.textContent = 'עדכון חדש בבנייה כעת — אפשר להוריד, הכל יתעדכן אוטומטית';
+        } else {
+          g.className = 'badge good';
+          gt.textContent = 'הכל מעודכן';
         }
-    </script>
+      }).catch(function () {
+        var g = $('#global-badge');
+        if (g) g.style.display = 'none';
+        ['apk', 'apk32', 'exe'].forEach(function (k) { setBadge(k, 'good', 'זמין להורדה'); });
+      });
+  }
+
+  refresh();
+  setInterval(refresh, 90000);
+
+  // TV remotes: land focus on the primary download button
+  var f = document.getElementById('firstfocus');
+  if (f) setTimeout(function () { f.focus(); }, 300);
+})();
+</script>
 </body>
 </html>
