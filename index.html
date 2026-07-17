@@ -21,6 +21,18 @@
   .feat { display: grid; gap: 14px; margin-top: 42px; }
   @media (min-width: 760px) { .feat { grid-template-columns: repeat(3, 1fr); } }
   .feat .card { padding: 18px; }
+  .dlcode {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 18px;
+    border: 2px solid rgba(41,211,245,.5); background: rgba(41,211,245,.07);
+    border-radius: var(--radius); padding: 14px 20px; margin: 22px auto 0; max-width: 560px; text-align: center;
+  }
+  .dlcode .lbl { font-size: 1rem; font-weight: 600; }
+  .dlcode .code {
+    font-family: Consolas, Menlo, monospace; direction: ltr;
+    font-size: 1.7rem; font-weight: 800; letter-spacing: .35em; padding-inline-start: .35em;
+    color: var(--accent); background: var(--bg2); border: 1px solid var(--line);
+    border-radius: 12px; padding: 5px 16px;
+  }
   .feat h3 { font-size: 1.02rem; margin-bottom: 4px; color: var(--accent); }
   .feat p { font-size: .9rem; color: var(--muted); }
 </style>
@@ -37,6 +49,11 @@
       <a class="btn" id="firstfocus" href="download/">הורדת הבילד</a>
       <a class="btn secondary" href="repository/">Repository לקודי</a>
       <a class="btn secondary" href="status/">סטטוס מערכת</a>
+    </div>
+
+    <div class="dlcode">
+      <span class="lbl">בסטרימר? קוד ל‑<b>Downloader</b>:</span>
+      <span class="code">9242817</span>
     </div>
   </div>
 

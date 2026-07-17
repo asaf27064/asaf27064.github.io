@@ -16,7 +16,7 @@
   }
   .statusbar .kv { color: var(--muted); }
   .statusbar .kv b { color: var(--text); font-weight: 700; }
-  .dl-card { display: flex; flex-direction: column; gap: 12px; }
+  .dl-card { display: flex; flex-direction: column; gap: 12px; height: 100%; }
   .dl-card .head { display: flex; align-items: center; gap: 14px; }
   .dl-card .ico {
     width: 52px; height: 52px; border-radius: 14px; flex: none;
@@ -26,11 +26,23 @@
   .dl-card h3 { font-size: 1.2rem; }
   .dl-card .sub { color: var(--muted); font-size: .92rem; margin-top: -2px; }
   .dl-card .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 30px; }
-  .dl-card .btn { margin-top: 4px; }
+  .dl-card .btn { margin-top: auto; }
   .primary-card { border-color: rgba(41,211,245,.45); box-shadow: 0 0 40px rgba(41,211,245,.07) inset; }
   .hint { font-size: .85rem; color: var(--muted); }
   details.dev summary .chev { transition: transform .15s; color: var(--accent); flex: none; }
   details.dev[open] summary .chev { transform: rotate(180deg); }
+  .dlcode {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 18px;
+    border: 2px solid rgba(41,211,245,.5); background: rgba(41,211,245,.07);
+    border-radius: var(--radius); padding: 16px 20px; margin-bottom: 22px; text-align: center;
+  }
+  .dlcode .lbl { font-size: 1.02rem; font-weight: 600; }
+  .dlcode .code {
+    font-family: Consolas, Menlo, monospace; direction: ltr;
+    font-size: 1.9rem; font-weight: 800; letter-spacing: .35em; padding-inline-start: .35em;
+    color: var(--accent); background: var(--bg2); border: 1px solid var(--line);
+    border-radius: 12px; padding: 6px 18px;
+  }
 </style>
 </head>
 <body>
@@ -48,6 +60,11 @@
 
   <h1 class="page">הורדת הבילד</h1>
   <p class="lead">בחרו את הגירסה למכשיר שלכם. ההתקנה כוללת את קודי + האשף — הכל מתעדכן אוטומטית לאחר ההתקנה.</p>
+
+  <div class="dlcode">
+    <span class="lbl">מתקינים על סטרימר? באפליקציית <b>Downloader</b> הקלידו את הקוד:</span>
+    <span class="code">9242817</span>
+  </div>
 
   <!-- live status -->
   <div class="statusbar" id="statusbar">
@@ -119,6 +136,9 @@
       </a>
     </div>
 
+
+  </div>
+
     <!-- which device -->
     <details class="dev card" style="padding:0" open>
       <summary>
@@ -141,8 +161,6 @@
         </table>
       </div>
     </details>
-
-  </div>
 
   <div class="footer">
     ההתקנה מתעדכנת אוטומטית — אין צורך להוריד שוב בעתיד.
