@@ -1,0 +1,74 @@
+name: Sync wizard zip from the build manifest
+
+# The Kodi repo endpoint here (addons.xml + zips/) serves the wizard for
+# manual installs and the /wizard page reads its version. Keep it in lockstep
+# with the fleet: whenever manifest.json on MasterKodi-IL-Build ships a newer
+# wizard, pull that exact zip into zips/, drop older ones, and reindex.
+# (Runs the indexer itself: the kodi-index workflow skips bot-authored pushes.)
+
+on:
+  schedule:
+    - cron: '30 */3 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-wizard
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Sync wizard zip to the manifest version
+        id: sync
+        shell: python
+        run: |
+          import json, os, glob, urllib.request
+
+          MAN = 'https://raw.githubusercontent.com/asaf27064/MasterKodi-IL-Build/main/manifest.json'
+          WID = 'plugin.program.masterkodi.il.wizard'
+          m = json.loads(urllib.request.urlopen(MAN, timeout=30).read().decode('utf-8-sig'))
+          wiz = next(a for a in m['addons'] if a['id'] == WID)
+          ver, url, zname = wiz['version'], wiz['url'], wiz['zip']
+          d = os.path.join('zips', WID)
+          os.makedirs(d, exist_ok=True)
+          target = os.path.join(d, zname)
+          changed = False
+          if not os.path.isfile(target):
+              print('fetching wizard %s' % ver)
+              urllib.request.urlretrieve(url, target)
+              changed = True
+          for old in glob.glob(os.path.join(d, WID + '-*.zip')):
+              if os.path.basename(old) != zname:
+                  os.remove(old)
+                  print('dropped stale', os.path.basename(old))
+                  changed = True
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+              fh.write('changed=%s\n' % str(changed).lower())
+          print('wizard endpoint version:', ver, '| changed:', changed)
+
+      - name: Reindex addons.xml
+        if: steps.sync.outputs.changed == 'true'
+        run: python .github/scripts/build_from_zips.py
+
+      - name: Commit
+        if: steps.sync.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add zips/ addons.xml addons.xml.md5
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "sync wizard zip to manifest version [skip ci]"
+            git push
+          fi
