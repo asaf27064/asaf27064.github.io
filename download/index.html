@@ -29,6 +29,8 @@
   .dl-card .btn { margin-top: 4px; }
   .primary-card { border-color: rgba(41,211,245,.45); box-shadow: 0 0 40px rgba(41,211,245,.07) inset; }
   .hint { font-size: .85rem; color: var(--muted); }
+  details.dev summary .chev { transition: transform .15s; color: var(--accent); flex: none; }
+  details.dev[open] summary .chev { transform: rotate(180deg); }
 </style>
 </head>
 <body>
@@ -57,43 +59,43 @@
 
   <div class="grid g2">
 
-    <!-- Android 64 - primary -->
+    <!-- Android 32 - most streamers -->
     <div class="card dl-card primary-card">
       <div class="head">
         <div class="ico">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
         <div>
-          <h3>Android TV / סטרימר — 64‑bit</h3>
-          <div class="sub">מתאים לרוב המכשירים: Shield, Google TV, Fire Stick 4K, Mi Box S</div>
-        </div>
-      </div>
-      <div class="meta">
-        <span class="badge" data-badge="apk"><span class="dot"></span><span data-badge-text="apk">…</span></span>
-        <span class="hint" data-built="MasterKodiIL-arm64-v8a.apk"></span>
-      </div>
-      <a class="btn" id="firstfocus" href="https://github.com/asaf27064/MasterKodi-IL-Build/releases/download/installers/MasterKodiIL-arm64-v8a.apk">
-        הורדת APK ‏64‑bit
-      </a>
-    </div>
-
-    <!-- Android 32 -->
-    <div class="card dl-card">
-      <div class="head">
-        <div class="ico">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
-        </div>
-        <div>
-          <h3>Android — 32‑bit</h3>
-          <div class="sub">למכשירים ישנים: Fire Stick דור 2‑3, סטרימרים ישנים</div>
+          <h3>Android TV — 32‑bit</h3>
+          <div class="sub">רוב הסטרימרים: Fire Stick (כל הדגמים), Chromecast with Google TV‏, Mi Box‏, onn</div>
         </div>
       </div>
       <div class="meta">
         <span class="badge" data-badge="apk32"><span class="dot"></span><span data-badge-text="apk32">…</span></span>
         <span class="hint" data-built="MasterKodiIL-armeabi-v7a.apk"></span>
       </div>
-      <a class="btn secondary" href="https://github.com/asaf27064/MasterKodi-IL-Build/releases/download/installers/MasterKodiIL-armeabi-v7a.apk">
+      <a class="btn" id="firstfocus" href="https://github.com/asaf27064/MasterKodi-IL-Build/releases/download/installers/MasterKodiIL-armeabi-v7a.apk">
         הורדת APK ‏32‑bit
+      </a>
+    </div>
+
+    <!-- Android 64 -->
+    <div class="card dl-card primary-card">
+      <div class="head">
+        <div class="ico">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+        </div>
+        <div>
+          <h3>Android — 64‑bit</h3>
+          <div class="sub">NVIDIA Shield‏, טלפונים וטאבלטים חדשים</div>
+        </div>
+      </div>
+      <div class="meta">
+        <span class="badge" data-badge="apk"><span class="dot"></span><span data-badge-text="apk">…</span></span>
+        <span class="hint" data-built="MasterKodiIL-arm64-v8a.apk"></span>
+      </div>
+      <a class="btn" href="https://github.com/asaf27064/MasterKodi-IL-Build/releases/download/installers/MasterKodiIL-arm64-v8a.apk">
+        הורדת APK ‏64‑bit
       </a>
     </div>
 
@@ -118,18 +120,24 @@
     </div>
 
     <!-- which device -->
-    <details class="dev card" style="padding:0">
-      <summary>איזו גירסה מתאימה למכשיר שלי?</summary>
+    <details class="dev card" style="padding:0" open>
+      <summary>
+        <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+        איזו גירסה מתאימה למכשיר שלי?
+      </summary>
       <div class="inner">
         <table class="clean">
           <tr><th>מכשיר</th><th>גירסה</th></tr>
-          <tr><td>NVIDIA Shield (כל הדגמים)</td><td style="color:var(--good)">64‑bit</td></tr>
-          <tr><td>Chromecast with Google TV</td><td style="color:var(--good)">64‑bit</td></tr>
-          <tr><td>Fire Stick 4K / 4K Max</td><td style="color:var(--good)">64‑bit</td></tr>
-          <tr><td>Fire Stick דור 2‑3</td><td style="color:var(--warn)">32‑bit</td></tr>
-          <tr><td>Xiaomi Mi Box S</td><td style="color:var(--good)">64‑bit</td></tr>
-          <tr><td>טלפון / טאבלט אנדרואיד חדש</td><td style="color:var(--good)">64‑bit</td></tr>
-          <tr><td>לא בטוחים?</td><td style="color:var(--warn)">נסו 64‑bit, ואם לא מתקין — 32‑bit</td></tr>
+          <tr><td>Fire TV Stick — כל הדגמים (כולל 4K ו‑4K Max)</td><td style="color:var(--warn)">32‑bit</td></tr>
+          <tr><td>Fire TV Cube — כל הדורות</td><td style="color:var(--warn)">32‑bit</td></tr>
+          <tr><td>Chromecast with Google TV‏ (4K / HD)</td><td style="color:var(--warn)">32‑bit</td></tr>
+          <tr><td>Google TV Streamer (2024)</td><td style="color:var(--warn)">32‑bit</td></tr>
+          <tr><td>Xiaomi Mi Box / Mi Box S</td><td style="color:var(--warn)">32‑bit</td></tr>
+          <tr><td>onn‏ (סטיק / בוקס)</td><td style="color:var(--warn)">32‑bit</td></tr>
+          <tr><td>NVIDIA Shield TV / Shield Pro</td><td style="color:var(--good)">64‑bit</td></tr>
+          <tr><td>NVIDIA Shield TV Tube (2019)</td><td style="color:var(--warn)">32‑bit</td></tr>
+          <tr><td>טלפון / טאבלט אנדרואיד</td><td style="color:var(--good)">64‑bit</td></tr>
+          <tr><td>לא מצאתם את המכשיר?</td><td>נסו 64‑bit; אם ההתקנה נכשלת — 32‑bit</td></tr>
         </table>
       </div>
     </details>
