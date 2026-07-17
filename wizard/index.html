@@ -43,16 +43,15 @@
 
 <script>
 (function () {
-  // resolve the CURRENT wizard zip from the repo index so this page never goes stale
-  fetch('../addons.xml', {cache: 'no-store'})
-    .then(function (r) { return r.text(); })
-    .then(function (t) {
-      var m = t.match(/id="plugin\.program\.masterkodi\.il\.wizard"[^>]*version="([0-9.]+)"/);
-      if (!m) return;
-      var v = m[1];
-      document.getElementById('wiz-ver').textContent = v;
-      document.getElementById('wiz-dl').href =
-        '../zips/plugin.program.masterkodi.il.wizard/plugin.program.masterkodi.il.wizard-' + v + '.zip';
+  // version + zip straight from the live manifest (instant source of truth;
+  // ts param busts the raw.githubusercontent CDN cache)
+  fetch('https://raw.githubusercontent.com/asaf27064/MasterKodi-IL-Build/main/manifest.json?ts=' + Date.now(), {cache: 'no-store'})
+    .then(function (r) { return r.json(); })
+    .then(function (m) {
+      var wiz = (m.addons || []).filter(function (a) { return a.id === 'plugin.program.masterkodi.il.wizard'; })[0];
+      if (!wiz) return;
+      document.getElementById('wiz-ver').textContent = wiz.version;
+      document.getElementById('wiz-dl').href = wiz.url;
     }).catch(function () {});
 })();
 </script>

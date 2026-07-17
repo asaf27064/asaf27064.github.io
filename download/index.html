@@ -195,7 +195,7 @@
 
   function refresh() {
     // 1) fleet versions from the manifest
-    get('https://raw.githubusercontent.com/' + REPO + '/main/manifest.json')
+    get('https://raw.githubusercontent.com/' + REPO + '/main/manifest.json?ts=' + Date.now())
       .then(function (m) {
         var wiz = (m.addons || []).filter(function (a) { return a.id === 'plugin.program.masterkodi.il.wizard'; })[0];
         if (wiz) $('#wiz-ver').textContent = wiz.version;

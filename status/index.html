@@ -72,7 +72,7 @@
   function get(u) { return fetch(u, {cache: 'no-store'}).then(function (r) { if (!r.ok) throw 0; return r.json(); }); }
 
   function refresh() {
-    get('https://raw.githubusercontent.com/' + REPO + '/main/manifest.json').then(function (m) {
+    get('https://raw.githubusercontent.com/' + REPO + '/main/manifest.json?ts=' + Date.now()).then(function (m) {
       var wiz = (m.addons || []).filter(function (a) { return a.id === 'plugin.program.masterkodi.il.wizard'; })[0];
       if (wiz) document.getElementById('wiz-ver').textContent = wiz.version;
       if (m.config) document.getElementById('cfg-ver').textContent = m.config.version;
