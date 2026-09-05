@@ -102,3 +102,32 @@ details.dev summary {
 details.dev summary::-webkit-details-marker { display: none; }
 details.dev[open] summary { border-bottom: 1px solid var(--line); }
 details.dev .inner { padding: 6px 22px 18px; }
+
+
+/* Nuvio + Ko-fi — defined once here so every page shares one definition.
+   Nuvio is violet, deliberately NOT the site cyan: it is a separate build and
+   must not read as part of MasterKodi. Ko-fi keeps its own brand blue so the
+   button still reads as Ko-fi. */
+.btn.nuvio { background: linear-gradient(135deg, #a78bfa 0%, #7c5cf0 100%); color: #0d0820; }
+.btn.nuvio:focus-visible, .btn.nuvio:focus {
+  box-shadow: 0 0 0 4px #a78bfa, 0 0 24px rgba(167,139,250,.45);
+}
+.btn.kofi { background: linear-gradient(135deg, #00b9fe 0%, #0d8ecf 100%); color: #04121c; }
+.btn.kofi svg { width: 24px; height: 24px; flex: none; }
+.btn.kofi:focus-visible, .btn.kofi:focus {
+  box-shadow: 0 0 0 4px #00b9fe, 0 0 24px rgba(0,185,254,.45);
+}
+
+/* the small header pill next to "עמוד ראשי" */
+.badge.kofi {
+  color: #37c8ff; border-color: rgba(0,185,254,.42); background: rgba(0,185,254,.10);
+  text-decoration: none;
+}
+.badge.kofi svg { width: 15px; height: 15px; flex: none; }
+.badge.kofi:hover { background: rgba(0,185,254,.18); }
+
+/* support card (downloads page) */
+.support { margin-top: 22px; text-align: center; }
+.support h3 { font-size: 1.15rem; color: #37c8ff; margin-bottom: 6px; }
+.support p { color: var(--muted); font-size: .95rem; margin-bottom: 14px; }
+.support .btn { max-width: 320px; margin: 0 auto; }
