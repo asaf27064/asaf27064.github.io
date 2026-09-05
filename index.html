@@ -36,29 +36,21 @@
   .feat h3 { font-size: 1.02rem; margin-bottom: 4px; color: var(--accent); }
   .feat p { font-size: .9rem; color: var(--muted); }
 
-  /* second build + support -- side by side on wide screens, stacked on TV/mobile */
-  .more { display: grid; gap: 18px; margin-top: 42px; }
-  @media (min-width: 760px) { .more { grid-template-columns: 1fr 1fr; } }
-  .more .card { display: flex; flex-direction: column; gap: 12px; }
-  .more h3 { font-size: 1.15rem; }
-  .more p { color: var(--muted); font-size: .95rem; flex: 1; }
-  .more .btn { margin-top: 4px; }
+  /* Nuvio + support: a compact pair under the main CTAs, so they are reachable
+     without scrolling but never compete with "הורדת הבילד" */
+  .herolinks { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+  .herolinks .btn { min-height: 52px; font-size: 1rem; padding: 10px 14px; }
+  .herolinks .btn svg { width: 22px; height: 22px; flex: none; }
 
-  /* Nuvio gets violet, NOT the site cyan: it is a separate build and must not
-     read as part of MasterKodi */
-  .nuvio { border-color: rgba(167,139,250,.45); }
-  .nuvio h3 { color: #a78bfa; }
-  .nuvio .btn { background: linear-gradient(135deg, #a78bfa 0%, #7c5cf0 100%); color: #0d0820; }
-  .nuvio .btn:focus-visible, .nuvio .btn:focus {
+  /* violet, NOT the site cyan: Nuvio is a separate build and must not read as
+     part of MasterKodi */
+  .btn.nuvio { background: linear-gradient(135deg, #a78bfa 0%, #7c5cf0 100%); color: #0d0820; }
+  .btn.nuvio:focus-visible, .btn.nuvio:focus {
     box-shadow: 0 0 0 4px #a78bfa, 0 0 24px rgba(167,139,250,.45);
   }
-
   /* Ko-fi keeps its own brand blue so the button still reads as Ko-fi */
-  .kofi { border-color: rgba(0,185,254,.40); }
-  .kofi h3 { color: #37c8ff; }
-  .kofi .btn { background: linear-gradient(135deg, #00b9fe 0%, #0d8ecf 100%); color: #04121c; }
-  .kofi .btn svg { width: 26px; height: 26px; flex: none; }
-  .kofi .btn:focus-visible, .kofi .btn:focus {
+  .btn.kofi { background: linear-gradient(135deg, #00b9fe 0%, #0d8ecf 100%); color: #04121c; }
+  .btn.kofi:focus-visible, .btn.kofi:focus {
     box-shadow: 0 0 0 4px #00b9fe, 0 0 24px rgba(0,185,254,.45);
   }
 </style>
@@ -76,6 +68,23 @@
       <a class="btn secondary" href="repository/">Repository לקודי</a>
       <a class="btn secondary" href="wizard/">Wizard — התקנה ידנית</a>
       <a class="btn secondary" href="status/">סטטוס מערכת</a>
+
+      <div class="herolinks">
+        <a class="btn nuvio" href="https://asafnuvio.asaf27064.workers.dev/"
+           target="_blank" rel="noopener">הבילד לנוביו</a>
+        <a class="btn kofi" href="https://ko-fi.com/A6U326F2LR"
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z"></path>
+            <line x1="6" y1="1" x2="6" y2="4"></line>
+            <line x1="10" y1="1" x2="10" y2="4"></line>
+            <line x1="14" y1="1" x2="14" y2="4"></line>
+          </svg>
+          קנו לי קפה
+        </a>
+      </div>
     </div>
 
     <div class="dlcode">
@@ -99,32 +108,6 @@
     </div>
   </div>
 
-  <div class="more">
-      <div class="card nuvio">
-        <h3>הבילד לנוביו</h3>
-        <p>יש לנו גם בילד לנוביו, עם אותה עברית ואותה גישה.
-           נפתח בכרטיסייה חדשה.</p>
-        <a class="btn" href="https://asafnuvio.asaf27064.workers.dev/"
-           target="_blank" rel="noopener">מעבר לבילד של נוביו</a>
-      </div>
-
-      <div class="card kofi">
-        <h3>תמיכה בפרויקט</h3>
-        <p>הבילד חינמי. אם הוא עוזר לכם, אפשר לתמוך ולעזור לכסות את עלויות
-           השרתים והפיתוח.</p>
-        <a class="btn" href="https://ko-fi.com/A6U326F2LR" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z"></path>
-            <line x1="6" y1="1" x2="6" y2="4"></line>
-            <line x1="10" y1="1" x2="10" y2="4"></line>
-            <line x1="14" y1="1" x2="14" y2="4"></line>
-          </svg>
-          קנו לי קפה
-        </a>
-      </div>
-    </div>
 
   <div class="footer">MasterKodi IL &nbsp;·&nbsp; <a href="download/">הורדה</a> &nbsp;·&nbsp; <a href="repository/">Repository</a> &nbsp;·&nbsp; <a href="status/">סטטוס</a> &nbsp;·&nbsp; <a href="https://asafnuvio.asaf27064.workers.dev/" target="_blank" rel="noopener">נוביו</a> &nbsp;·&nbsp; <a href="https://ko-fi.com/A6U326F2LR" target="_blank" rel="noopener">תמיכה</a></div>
 </div>
